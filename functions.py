@@ -4,7 +4,8 @@ import setup
 import time
 import random
 
-common_phrases = ['My man!', 'I can say that \'cause he\'s not here!', 'What\'s the good word?']
+common_phrases = ['My man!', 'I can say that \'cause he\'s not here!',
+                  'What\'s the good word?', 'Can I getcha a pretzel?']
 
 
 def get_bot(bot_index):
@@ -35,6 +36,7 @@ def parse_message(message, bot):
         bot.post('Ha-mez Guh-rrity! ' + random.choice(common_phrases))
     if 'Tristan Davies'.lower() in message.lower():
         bot.post('Trist-in Dah-veeez! ' + random.choice(common_phrases))
+
 
 def loop(group_id, bot, delay):
     """Main Loop."""
