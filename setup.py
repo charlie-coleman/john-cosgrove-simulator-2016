@@ -3,6 +3,15 @@ import pyphen
 import configparser
 
 pyphen.language_fallback('en_US')
-dic = pyphen.Pyphen(lang='en_US')
+DICT = pyphen.Pyphen(lang='en_US')
 config = configparser.ConfigParser()
 config.read('.\\settings.ini')
+
+ADMINS = config.get('Setup', 'Admins').split(',')
+GROUP_IDS = config.get('Setup', 'GroupIDs').split(',')
+NEW_IMPROVED = 0
+TESTING_GROUND = 1
+THREE_C = 2
+LANGUAGE = config.get('Setup', 'Language')
+DELAY = config.getint('Setup', 'Delay')/1000.0
+VOWELS = ('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U')
