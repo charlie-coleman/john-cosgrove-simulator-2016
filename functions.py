@@ -2,6 +2,9 @@
 import groupy
 import setup
 import time
+import random
+
+common_phrases = ['My man!', 'I can say that \'cause he\'s not here!', 'What\'s the good word?']
 
 
 def get_bot(bot_index):
@@ -28,7 +31,10 @@ def parse_message(message, bot):
     message_arr = message.split()
     if message_arr[0] in commands:
         command_functions[commands.index(message_arr[0])](message, bot)
-
+    if 'Jimmy Garrity'.lower() in message.lower():
+        bot.post('Ha-mez Guh-rrity! ' + random.choice(common_phrases))
+    if 'Tristan Davies'.lower() in message.lower():
+        bot.post('Trist-in Dah-veeez! ' + random.choice(common_phrases))
 
 def loop(group_id, bot, delay):
     """Main Loop."""
