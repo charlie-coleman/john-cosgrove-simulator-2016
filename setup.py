@@ -1,11 +1,15 @@
 """Initialization of John Cosgrove Simulator 2016."""
 import pyphen
 import configparser
+import time
 
 pyphen.language_fallback('en_US')
 DICT = pyphen.Pyphen(lang='en_US')
 config = configparser.ConfigParser()
 config.read('.\\settings.ini')
+LOOP = True
+ADMIN = False
+TIME = time.time()
 
 ADMINS = config.get('Setup', 'Admins').split(',')
 GROUP_IDS = config.get('Setup', 'GroupIDs').split(',')
@@ -14,4 +18,5 @@ TESTING_GROUND = 1
 THREE_C = 2
 LANGUAGE = config.get('Setup', 'Language')
 DELAY = config.getint('Setup', 'Delay')/1000.0
-VOWELS = ('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U')
+TIMEOUT_TIME = config.getint('Setup', 'Timeout')
+VOWELS = ('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U', 'y', 'Y')

@@ -4,11 +4,21 @@ import setup
 import time
 import random
 
-common_phrases = ['My man!', 'I can say that \'cause he\'s not here!',
-                  'What\'s the good word?', 'Can I getcha a pretzel?']
+# Variables
+
+name_phrases = ['My man!', 'I can say that \'cause he\'s not here!',
+                'What\'s the good word?', 'Can I getcha a pretzel?']
+johnisms = ['What\'s the good word?', 'Can I getcha a pretzel?', '*Chews loudly*',
+            '*Rolls around in bed when Payton turns on his iPad*', '*Eats chicken tenders*',
+            '*Identifies plane overhead*', 'Ahhh, shooting the ILS approach into Schafer.']
+trigger_names = ['jimmy garrity', 'tristan davies']
+output_names = ['Hah-mez Guh-rrity', 'Trist-in Duh-veez']
+hold_message = None
+# Setup Functions
 
 
 def get_bot(bot_index):
+    """Returns the bot by index."""
     return groupy.Bot.list()[bot_index]
 
 
@@ -28,22 +38,70 @@ def get_most_recent_message(group):
 
 
 def parse_message(message, bot):
-    """Determine if message contains command, if so, triggers command."""
+    """Determine if message contains command, if so, triggers command. Also triggers check_names"""
+    if not message:
+        message = 'NULL AND VOID'
     message_arr = message.split()
     if message_arr[0] in commands:
         command_functions[commands.index(message_arr[0])](message, bot)
-    if 'Jimmy Garrity'.lower() in message.lower():
-        bot.post('Ha-mez Guh-rrity! ' + random.choice(common_phrases))
-    if 'Tristan Davies'.lower() in message.lower():
-        bot.post('Trist-in Dah-veeez! ' + random.choice(common_phrases))
+    elif message_arr[0] in admin_commands:
+        admin_functions[admin_commands.index(message_arr[0])](message, bot)
+    check_names(message, bot)
+
+
+def check_names(message, bot):
+    """Determines if a trigger name is in the message, if so, outputs modified name and a quote by John."""
+    for name in trigger_names:
+        if name in message.lower():
+            bot.post(output_names[trigger_names.index(name)]+'! '+random.choice(name_phrases))
 
 
 def loop(group_id, bot, delay):
-    """Main Loop."""
+    """Main loop."""
     group = get_group(group_id)
     message = get_most_recent_message(group)
+    if message.user_id in setup.ADMINS:
+        setup.ADMIN = True
+    else:
+        setup.ADMIN = False
     parse_message(message.text, bot)
+    keep_connected(message, bot)
     time.sleep(delay)
+
+
+def check_elapsed_time():
+    """Check time passed since last message."""
+    elapsed_time = time.time() - setup.TIME
+    return elapsed_time
+
+
+def update_time(message):
+    global hold_message
+    """Update time """
+    if hold_message != message.text:
+        setup.TIME = time.time()
+        hold_message = message.text
+
+
+def keep_connected(message, bot):
+    """Keeps the bot from timing out."""
+    update_time(message)
+    print(check_elapsed_time())
+    if check_elapsed_time() >= setup.TIMEOUT_TIME:
+        bot.post(random.choice(johnisms))
+
+# Regular Commands
+
+
+def check_and_multiply_letters(syllable, letter_list, x, *backup_list):
+    """Multiplies every letter in syllables found in letter_list x times."""
+    for letter in syllable[:-1]:
+        if letter in letter_list:
+            syllable = syllable.replace(letter, letter+''.join([letter.lower() for s in range(x-1)]))
+            return syllable
+    if len(backup_list) > 0:
+        check_and_multiply_letters(syllable, backup_list, x)
+    return syllable
 
 
 def johnify(message, bot):
@@ -51,20 +109,30 @@ def johnify(message, bot):
     words = message.split()[1:]
     for i in range(len(words)):
         syllables = setup.DICT.inserted(words[i]).split('-')
-        replaced = False
-        for letter in syllables[0][:-1]:
-            if letter in setup.VOWELS and not replaced:
-                syllables[0] = syllables[0].replace(letter, letter+''.join([letter.lower() for s in range(3)]))
-                replaced = True
-        if not replaced:
-            for letter in syllables[0][:-1]:
-                if letter in 'yY' and not replaced:
-                    syllables[0] = syllables[0].replace(letter, letter+''.join([letter.lower() for s in range(3)]))
-                    replaced = True
+        for j in range(0, len(syllables), 2):
+            syllables[j] = check_and_multiply_letters(syllables[j], setup.VOWELS, 4, 'yY')
         words[i] = ''.join(syllables)
-    output_string = ' '.join(words)
-    output_string += '!'
+    output_string = ' '.join(words) + '!'
     bot.post(output_string)
 
-commands = ['!johnify']
-command_functions = [johnify]
+
+def johnism(message, bot):
+    """Print out a Johnism."""
+    output_string = random.choice(johnisms)
+    bot.post(output_string)
+
+
+# Admin Commands
+
+
+def disconnect(message, bot):
+    """Disconnect the bot."""
+    setup.LOOP = False
+    bot.post('Welp, off to bed. Got a long day tomorrow! *Is 9:45PM*')
+
+
+# Command Setup
+commands = ['!johnify', '!johnism']
+command_functions = [johnify, johnism]
+admin_commands = ['!disconnect']
+admin_functions = [disconnect]

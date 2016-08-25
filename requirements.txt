@@ -1,1 +1,1 @@
-pip install GroupyAPI
+groupy
