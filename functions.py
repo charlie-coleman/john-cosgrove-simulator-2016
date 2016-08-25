@@ -76,8 +76,8 @@ def check_elapsed_time():
 
 
 def update_time(message):
-    global hold_message
     """Update time """
+    global hold_message
     if hold_message != message.text:
         setup.TIME = time.time()
         hold_message = message.text
@@ -86,7 +86,6 @@ def update_time(message):
 def keep_connected(message, bot):
     """Keeps the bot from timing out."""
     update_time(message)
-    print(check_elapsed_time())
     if check_elapsed_time() >= setup.TIMEOUT_TIME:
         bot.post(random.choice(johnisms))
 
