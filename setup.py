@@ -3,6 +3,10 @@ import pyphen
 import configparser
 import time
 
+
+# Setup hyphenator and other global variables
+
+
 pyphen.language_fallback('en_US')
 DICT = pyphen.Pyphen(lang='en_US')
 config = configparser.ConfigParser()
@@ -10,6 +14,10 @@ config.read('.\\settings.ini')
 LOOP = True
 ADMIN = False
 TIME = time.time()
+
+
+# Read the .ini file
+
 
 ADMINS = config.get('Setup', 'Admins').split(',')
 GROUP_IDS = config.get('Setup', 'GroupIDs').split(',')

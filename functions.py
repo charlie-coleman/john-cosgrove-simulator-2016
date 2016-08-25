@@ -4,7 +4,9 @@ import setup
 import time
 import random
 
+
 # Variables
+
 
 name_phrases = ['My man!', 'I can say that \'cause he\'s not here!',
                 'What\'s the good word?', 'Can I getcha a pretzel?']
@@ -14,6 +16,8 @@ johnisms = ['What\'s the good word?', 'Can I getcha a pretzel?', '*Chews loudly*
 trigger_names = ['jimmy garrity', 'tristan davies']
 output_names = ['Hah-mez Guh-rrity', 'Trist-in Duh-veez']
 hold_message = None
+
+
 # Setup Functions
 
 
@@ -89,6 +93,7 @@ def keep_connected(message, bot):
     if check_elapsed_time() >= setup.TIMEOUT_TIME:
         bot.post(random.choice(johnisms))
 
+
 # Regular Commands
 
 
@@ -131,6 +136,8 @@ def disconnect(message, bot):
 
 
 # Command Setup
+
+
 commands = ['!johnify', '!johnism']
 command_functions = [johnify, johnism]
 admin_commands = ['!disconnect']

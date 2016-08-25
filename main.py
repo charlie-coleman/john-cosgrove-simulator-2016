@@ -10,5 +10,6 @@ def main():
     while setup.LOOP:
         functions.loop(setup.GROUP_IDS[chat_num], bot, setup.DELAY)
 
+
 if __name__ == '__main__':
     main()
