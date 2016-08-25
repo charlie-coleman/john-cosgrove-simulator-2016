@@ -5,7 +5,7 @@ import functions
 
 def main():
     """Start bot in groupchat."""
-    chat_num = setup.TESTING_GROUND
+    chat_num = setup.NEW_IMPROVED
     bot = functions.get_bot(chat_num)
     while setup.LOOP:
         functions.loop(setup.GROUP_IDS[chat_num], bot, setup.DELAY)
