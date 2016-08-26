@@ -1,1 +1,3 @@
-groupy
+groupyapi
+configparser
+pyphen
