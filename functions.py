@@ -114,7 +114,7 @@ def check_and_multiply_letters(syllable, letter_list, x, *backup_list):
     """Multiplies every letter in syllables found in letter_list x times."""
     for letter in syllable[:-1]:
         if letter in letter_list:
-            syllable = syllable.replace(letter, letter+''.join([letter.lower() for s in range(x-1)]))
+            syllable = syllable.replace(letter, letter+''.join([letter.lower() for s in range(x-1)]), 1)
             return syllable
     if len(backup_list) > 0:
         check_and_multiply_letters(syllable, backup_list, x)
@@ -128,6 +128,7 @@ def johnify(message, bot):
         syllables = setup.DICT.inserted(words[i]).split('-')
         for j in range(0, len(syllables), 2):
             syllables[j] = check_and_multiply_letters(syllables[j], setup.VOWELS, 4, 'yY')
+            print(syllables[j])
         words[i] = ''.join(syllables)
     output_string = ' '.join(words) + '!'
     bot.post(output_string)
