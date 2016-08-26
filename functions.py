@@ -16,7 +16,8 @@ johnisms = ['What\'s the good word?', 'Can I getcha a pretzel?', '*Chews loudly*
 trigger_names = ['jimmy garrity', 'tristan davies']
 output_names = ['Hah-mez Guh-rrity', 'Trist-in Duh-veez']
 hold_message = None
-
+check_user = None
+check_message = None
 
 # Setup Functions
 
@@ -43,6 +44,7 @@ def get_most_recent_message(group):
 
 def parse_message(message, bot):
     """Determine if message contains command, if so, triggers command. Also triggers check_names"""
+    check_user, check_message = None, None
     if not message:
         message = 'NULL AND VOID'
     message_arr = message.split()
@@ -68,7 +70,8 @@ def loop(group_id, bot, delay):
         setup.ADMIN = True
     else:
         setup.ADMIN = False
-    parse_message(message.text, bot)
+    if check_if_new(message):
+        parse_message(message.text, bot)
     keep_connected(message, bot)
     time.sleep(delay)
 
@@ -93,6 +96,16 @@ def keep_connected(message, bot):
     if check_elapsed_time() >= setup.TIMEOUT_TIME:
         bot.post(random.choice(johnisms))
 
+
+def check_if_new(message):
+    """Checks to make sure it doesn't respond to the same message twice"""
+    global check_message, check_user
+    out = False
+    if message.text != check_message or message.user_id != check_user:
+        check_message = message.text
+        check_user = message.user_id
+        out = True
+    return out
 
 # Regular Commands
 

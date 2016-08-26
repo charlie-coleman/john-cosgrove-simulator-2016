@@ -3,7 +3,6 @@ import pyphen
 import configparser
 import time
 
-
 # Setup hyphenator and other global variables
 
 
