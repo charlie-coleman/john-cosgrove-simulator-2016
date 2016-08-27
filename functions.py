@@ -18,6 +18,7 @@ output_names = ['Hah-mez Guh-rrity', 'Trist-in Duh-veez']
 hold_message = None
 check_user = None
 check_message = None
+time_last_sent = 0
 
 # Setup Functions
 
@@ -44,7 +45,6 @@ def get_most_recent_message(group):
 
 def parse_message(message, bot):
     """Determine if message contains command, if so, triggers command. Also triggers check_names"""
-    check_user, check_message = None, None
     if not message:
         message = 'NULL AND VOID'
     message_arr = message.split()
@@ -62,17 +62,16 @@ def check_names(message, bot):
             bot.post(output_names[trigger_names.index(name)]+'! '+random.choice(name_phrases))
 
 
-def loop(group_id, bot, delay):
+def loop(group_id, bot_index, delay):
     """Main loop."""
+    bot = get_bot(bot_index)
     group = get_group(group_id)
     message = get_most_recent_message(group)
     if message.user_id in setup.ADMINS:
         setup.ADMIN = True
     else:
         setup.ADMIN = False
-    if check_if_new(message):
-        parse_message(message.text, bot)
-    keep_connected(message, bot)
+    prevent_disconnect(message, bot)
     time.sleep(delay)
 
 
@@ -90,22 +89,15 @@ def update_time(message):
         hold_message = message.text
 
 
-def keep_connected(message, bot):
-    """Keeps the bot from timing out."""
-    update_time(message)
-    if check_elapsed_time() >= setup.TIMEOUT_TIME:
-        bot.post(random.choice(johnisms))
-
-
-def check_if_new(message):
+def prevent_disconnect(message, bot):
     """Checks to make sure it doesn't respond to the same message twice"""
-    global check_message, check_user
-    out = False
-    if message.text != check_message or message.user_id != check_user:
-        check_message = message.text
-        check_user = message.user_id
-        out = True
-    return out
+    global check_message, time_last_sent
+    if check_message != message.created_at:
+        check_message = message.created_at
+        time_last_sent = time.time()
+    if time.time()-time_last_sent > 4400:
+        johnism(message, bot)
+
 
 # Regular Commands
 

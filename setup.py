@@ -9,7 +9,7 @@ import time
 pyphen.language_fallback('en_US')
 DICT = pyphen.Pyphen(lang='en_US')
 config = configparser.ConfigParser()
-config.read('.\\settings.ini')
+config.read('settings.ini')
 LOOP = True
 ADMIN = False
 TIME = time.time()
