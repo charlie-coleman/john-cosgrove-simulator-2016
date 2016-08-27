@@ -10,7 +10,7 @@ def main():
     sys.stdout = open('log.txt', 'w')
     sys.stderr = open('log.txt', 'w')
     f = open('log.txt', 'w')
-    chat_num = setup.TESTING_GROUND
+    chat_num = setup.NEW_IMPROVED
     while setup.LOOP:
         f.truncate(0)
         print('THE TIME SINCE LAST MESSAGE WAS' + str(setup.TIME-time.time()) + ' SECONDS\n')
