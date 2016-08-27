@@ -72,6 +72,7 @@ def loop(group_id, bot_index, delay):
     else:
         setup.ADMIN = False
     prevent_disconnect(message, bot)
+    parse_message(message.text, bot)
     time.sleep(delay)
 
 
