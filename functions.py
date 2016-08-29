@@ -10,11 +10,11 @@ import random
 
 name_phrases = ['My man!', 'I can say that \'cause he\'s not here!',
                 'What\'s the good word?', 'Can I getcha a pretzel?']
-johnisms = ['What\'s the good word?', 'Can I getcha a pretzel?', '*Turns off all the electronics in the room at 8pm*',
-            '*Rolls around in bed when Payton turns on his iPad*', '*Eats chicken tenders*',
-            '*Identifies plane overhead*', 'Ahhh, shooting the ILS approach into Schafer.',
-            '*Sits at clocktower for 48 hours straight*', '*Dons windbreaker*',
-            '*Sees somebody in his chair, has nervous breakdown*']
+johnisms = ['What\'s the good word?', 'Can I getcha a pretzel?',
+            '*Turns off all the electronics in the room at 8pm*', '*Rolls around in bed when Payton turns on his iPad*',
+            '*Eats chicken tenders*', '*Identifies plane overhead*',
+            'Ahhh, shooting the ILS approach into Schafer.', '*Sits at clocktower for 48 hours straight*',
+            '*Dons windbreaker*', '*Sees somebody in his chair, has nervous breakdown*']
 trigger_names = ['jimmy garrity', 'tristan davies']
 output_names = ['Hah-mez Guh-rrity', 'Trist-in Duh-veez']
 hold_message = None
@@ -131,7 +131,15 @@ def johnify(message, bot):
 
 def johnism(message, bot):
     """Print out a Johnism."""
+    message_arr = message.split()
     output_string = random.choice(johnisms)
+    if len(message_arr) > 1:
+        try:
+            output_string = johnisms[int(message_arr[1])-1]
+        except TypeError:
+            output_string = random.choice(johnisms)
+        except IndexError:
+            output_string = random.choice(johnisms)
     bot.post(output_string)
 
 
