@@ -1,8 +1,6 @@
 """Launch point for John Cosgrove Simulator 2016."""
 import setup
 import functions
-import sys
-import time
 
 
 def main():

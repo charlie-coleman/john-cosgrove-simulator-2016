@@ -14,7 +14,8 @@ johnisms = ['What\'s the good word?', 'Can I getcha a pretzel?',
             '*Turns off all the electronics in the room at 8pm*', '*Rolls around in bed when Payton turns on his iPad*',
             '*Eats chicken tenders*', '*Identifies plane overhead*',
             'Ahhh, shooting the ILS approach into Schafer.', '*Sits at clocktower for 48 hours straight*',
-            '*Dons windbreaker*', '*Sees somebody in his chair, has nervous breakdown*']
+            '*Dons windbreaker*', '*Sees somebody in his chair, has nervous breakdown*',
+            'It\'s a fucking ice chest in here!']
 trigger_names = ['jimmy garrity', 'tristan davies']
 output_names = ['Hah-mez Guh-rrity', 'Trist-in Duh-veez']
 hold_message = None
