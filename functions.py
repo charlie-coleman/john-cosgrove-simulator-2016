@@ -10,9 +10,11 @@ import random
 
 name_phrases = ['My man!', 'I can say that \'cause he\'s not here!',
                 'What\'s the good word?', 'Can I getcha a pretzel?']
-johnisms = ['What\'s the good word?', 'Can I getcha a pretzel?', '*Chews loudly*',
+johnisms = ['What\'s the good word?', 'Can I getcha a pretzel?', '*Turns off all the electronics in the room at 8pm*',
             '*Rolls around in bed when Payton turns on his iPad*', '*Eats chicken tenders*',
-            '*Identifies plane overhead*', 'Ahhh, shooting the ILS approach into Schafer.']
+            '*Identifies plane overhead*', 'Ahhh, shooting the ILS approach into Schafer.',
+            '*Sits at clocktower for 48 hours straight*', '*Dons windbreaker*',
+            '*Sees somebody in his chair, has nervous breakdown*']
 trigger_names = ['jimmy garrity', 'tristan davies']
 output_names = ['Hah-mez Guh-rrity', 'Trist-in Duh-veez']
 hold_message = None
