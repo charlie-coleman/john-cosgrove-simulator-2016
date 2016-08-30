@@ -11,8 +11,8 @@ import random
 name_phrases = ['My man!', 'I can say that \'cause he\'s not here!',
                 'What\'s the good word?', 'Can I getcha a pretzel?']
 johnisms = ['What\'s the good word?', 'Can I getcha a pretzel?',
-            '*Turns off all the electronics in the room at 8pm*', '*Rolls around in bed when Payton turns on his iPad*',
-            '*Eats chicken tenders*', '*Identifies plane overhead*',
+            '*Turns off all the electronics in the room at 8pm*', '*Identifies plane overhead*',
+            '*Eats chicken tenders*', '*Rolls around in bed when Payton turns on his iPad*',
             'Ahhh, shooting the ILS approach into Schafer.', '*Sits at clocktower for 48 hours straight*',
             '*Dons windbreaker*', '*Sees somebody in his chair, has nervous breakdown*',
             'It\'s a fucking ice chest in here!']
