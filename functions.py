@@ -99,8 +99,8 @@ def prevent_disconnect(message, bot):
     if check_message != message.created_at:
         check_message = message.created_at
         time_last_sent = time.time()
-    if time.time()-time_last_sent > 4400:
-        johnism(message, bot)
+    if time.time()-time_last_sent > setup.TIMEOUT_TIME:
+        johnism('', bot)
 
 
 # Regular Commands
