@@ -12,6 +12,7 @@ config = configparser.ConfigParser()
 config.read('settings.ini')
 LOOP = True
 ADMIN = False
+PREVENT_DISCONNECT = False
 TIME = time.time()
 
 

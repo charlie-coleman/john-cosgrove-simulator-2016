@@ -3,6 +3,8 @@ import groupy
 import setup
 import time
 import random
+import os
+import sys
 
 
 # Variables
@@ -74,7 +76,8 @@ def loop(group_id, bot_index, delay):
         setup.ADMIN = True
     else:
         setup.ADMIN = False
-    prevent_disconnect(message, bot)
+    if setup.PREVENT_DISCONNECT:
+        prevent_disconnect(message, bot)
     parse_message(message.text, bot)
     time.sleep(delay)
 
