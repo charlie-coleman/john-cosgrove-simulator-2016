@@ -9,8 +9,7 @@ import os
 pyphen.language_fallback('en_US')
 DICT = pyphen.Pyphen(lang='en_US')
 config = configparser.ConfigParser()
-print(os.getcwd())
-config.read(os.getcwd() + '\\settings.ini')
+config.read(os.path.join(os.getcwd(), 'settings.ini'))
 LOOP = True
 ADMIN = False
 PREVENT_DISCONNECT = False
