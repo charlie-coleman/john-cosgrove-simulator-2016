@@ -3,8 +3,6 @@ import groupy
 import setup
 import time
 import random
-import os
-import sys
 
 
 # Variables
@@ -17,7 +15,7 @@ johnisms = ['What\'s the good word?', 'Can I getcha a pretzel?',
             '*Eats chicken tenders*', '*Rolls around in bed when Payton turns on his iPad*',
             'Ahhh, shooting the ILS approach into Schafer.', '*Sits at clocktower for 48 hours straight*',
             '*Dons windbreaker*', '*Sees somebody in his chair, has nervous breakdown*',
-            'It\'s a fucking ice chest in here!']
+            'It\'s a fucking ice chest in here!', 'That place is tasty my friend']
 trigger_names = ['jimmy garrity', 'tristan davies']
 output_names = ['Hah-mez Guh-rrity', 'Trist-in Duh-veez']
 hold_message = None
@@ -127,7 +125,6 @@ def johnify(message, bot):
         syllables = setup.DICT.inserted(words[i]).split('-')
         for j in range(0, len(syllables), 2):
             syllables[j] = check_and_multiply_letters(syllables[j], setup.VOWELS, 4, 'yY')
-            print(syllables[j])
         words[i] = ''.join(syllables)
     output_string = ' '.join(words) + '!'
     bot.post(output_string)
@@ -147,6 +144,21 @@ def johnism(message, bot):
     bot.post(output_string)
 
 
+def johnname(message, bot):
+    message_arr = message.split()
+    output_string = 'How to: \'!johnname <First Name> <Last Name>\''
+    if len(message_arr) > 2:
+        hold_letter = message_arr[-1][0]
+        for i in range(len(message_arr[1:])):
+            message_arr[i+1] = hold_letter + message_arr[i+1]
+            hold_letter = message_arr[i+1][1]
+            message_arr[i+1] = message_arr[i+1][0]+message_arr[i+1][2:]
+        output_string = ' '.join(message_arr[1:])
+        johnify('!johnify ' + output_string, bot)
+        return
+    bot.post(output_string)
+
+
 # Admin Commands
 
 
@@ -159,7 +171,7 @@ def disconnect(message, bot):
 # Command Setup
 
 
-commands = ['!johnify', '!johnism']
-command_functions = [johnify, johnism]
+commands = ['!johnify', '!johnism', '!johnname']
+command_functions = [johnify, johnism, johnname]
 admin_commands = ['!disconnect']
 admin_functions = [disconnect]

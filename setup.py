@@ -2,14 +2,15 @@
 import pyphen
 import configparser
 import time
-
+import os
 # Setup hyphenator and other global variables
 
 
 pyphen.language_fallback('en_US')
 DICT = pyphen.Pyphen(lang='en_US')
 config = configparser.ConfigParser()
-config.read('settings.ini')
+print(os.getcwd())
+config.read(os.getcwd() + '\\settings.ini')
 LOOP = True
 ADMIN = False
 PREVENT_DISCONNECT = False
